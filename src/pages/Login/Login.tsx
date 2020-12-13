@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     const res = await loginUser(username, password)
     if(res) {
       presentToast('Logado com sucesso')
-      history.push("/page/Main/" + res)
+      history.push("/page/ShoppingList/" + res)
       console.log(res)
     } else presentToast('Login falhou')
     setBusy(false)

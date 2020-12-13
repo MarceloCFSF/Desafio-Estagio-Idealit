@@ -1,8 +1,11 @@
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { 
+  IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonRouterOutlet, IonText, IonTitle, IonToolbar 
+} from '@ionic/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Redirect, Route, useParams } from 'react-router';
 import Menu from '../../components/Menu';
 import { data } from '../../firebaseConfig';
+import ShoppingList from '../ShoppingList/ShoppingList';
 
 const reference = data.ref('users')
 
@@ -21,7 +24,7 @@ const Main: React.FC = () => {
 
   return (
     <IonPage>
-      <Menu user={user}/>
+      <Menu user={user} id={id}/>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

@@ -10,10 +10,10 @@ import {
   IonNote,
 } from '@ionic/react';
 
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes} from 'react';
 import { useLocation } from 'react-router-dom';
 import { 
-  listOutline, listSharp, thunderstormOutline, thunderstormSharp, cashOutline, cashSharp, settingsOutline, settingsSharp
+  homeOutline, homeSharp, listOutline, listSharp, thunderstormOutline, thunderstormSharp, cashOutline, cashSharp, settingsOutline, settingsSharp
 } from 'ionicons/icons';
 import './Menu.css';
 
@@ -26,9 +26,16 @@ interface AppPage {
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   user: string;
+  id: string
 }
 
 const appPages: AppPage[] = [
+  {
+    title: 'Inicio',
+    url: '/page/Main',
+    iosIcon: homeOutline,
+    mdIcon: homeSharp
+  },
   {
     title: 'Lista de Compras',
     url: '/page/ShoppingList',
@@ -55,7 +62,7 @@ const appPages: AppPage[] = [
   },
 ];
 
-const Menu: React.FC<InputProps> = ({user}) => {
+const Menu: React.FC<InputProps> = ({ user, id }) => {
   const location = useLocation();
 
   return (
@@ -67,7 +74,7 @@ const Menu: React.FC<InputProps> = ({user}) => {
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url + '/' + id} routerDirection="none" lines="none" detail={false}>
                   <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
