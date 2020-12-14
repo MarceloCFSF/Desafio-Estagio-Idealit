@@ -48,6 +48,9 @@ export async function registerUser(username: string, email: string, password: st
 
 export async function deleteUser() {
   try {
+    if (auth.currentUser) {
+      await data.ref(`users/${auth.currentUser.uid}`).remove()
+    }
     await auth.currentUser?.delete()
   } catch (error) {
     presentToast(error.message)

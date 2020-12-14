@@ -18,7 +18,6 @@ interface ShoppingList {
 
 const ShoppingList: React.FC = () => {
   const [list, setList] = useState<ShoppingList[]>()
-  const [change, setChange] = useState<boolean>(false)
   
   const { id } = useParams<{ id: string }>();
 
@@ -34,7 +33,7 @@ const ShoppingList: React.FC = () => {
     })
 
     return () => reference.off('value', onChangeValue)
-  }, [change])
+  }, [])
 
   function handleChecked(id:string, checked: boolean, label: string) {
     userInfo.child("list/" + id).update({label, checked: !checked})
@@ -53,7 +52,7 @@ const ShoppingList: React.FC = () => {
 
   function handleDelete(id: string) {
     userInfo.child('list/' + id).remove()
-    if (list?.length == 1) {
+    if (list?.length === 1) {
       setList(undefined)
     }
   }

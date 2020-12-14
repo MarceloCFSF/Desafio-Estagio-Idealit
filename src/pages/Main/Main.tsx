@@ -58,11 +58,7 @@ const Main: React.FC = () => {
 
     return () => reference.off('value', onChangeValue)
   }, [reference])
-
-  useEffect(() => {
-    console.log(id)
-  }, [])
-
+  
   return (
     <IonTabs>
       <IonRouterOutlet>

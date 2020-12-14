@@ -21,7 +21,6 @@ const Login: React.FC = () => {
     if(res) {
       presentToast('Logado com sucesso')
       history.push("/tabs/" + res)
-      console.log(res)
     } else presentToast('Login falhou')
     setBusy(false)
   }
