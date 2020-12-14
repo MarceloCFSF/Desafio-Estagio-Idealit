@@ -10,7 +10,7 @@ import {
   IonNote,
 } from '@ionic/react';
 
-import React, { InputHTMLAttributes} from 'react';
+import React, { InputHTMLAttributes, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import { 
   homeOutline, homeSharp, listOutline, listSharp, thunderstormOutline, thunderstormSharp, cashOutline, cashSharp, settingsOutline, settingsSharp
@@ -64,6 +64,10 @@ const appPages: AppPage[] = [
 
 const Menu: React.FC<InputProps> = ({ user, id }) => {
   const location = useLocation();
+
+  useEffect(() =>  {
+    console.log(location.pathname)
+  }, [])
 
   return (
     <IonMenu contentId="main" type="overlay">

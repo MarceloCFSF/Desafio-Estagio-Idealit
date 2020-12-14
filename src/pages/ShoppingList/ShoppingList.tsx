@@ -17,9 +17,8 @@ interface ShoppingList {
 }
 
 const ShoppingList: React.FC = () => {
-  // const [checked, setChecked] = useState(false);
-  
   const [list, setList] = useState<ShoppingList[]>()
+  const [change, setChange] = useState<boolean>(false)
   
   const { id } = useParams<{ id: string }>();
 
@@ -35,7 +34,7 @@ const ShoppingList: React.FC = () => {
     })
 
     return () => reference.off('value', onChangeValue)
-  }, [reference])
+  }, [change])
 
   function handleChecked(id:string, checked: boolean, label: string) {
     userInfo.child("list/" + id).update({label, checked: !checked})
@@ -54,14 +53,13 @@ const ShoppingList: React.FC = () => {
 
   function handleDelete(id: string) {
     userInfo.child('list/' + id).remove()
-    userInfo.child('list').once("value").then(snapshot => {
-      setList(snapshot.val())
-    })
+    if (list?.length == 1) {
+      setList(undefined)
+    }
   }
 
   return (
     <IonPage>
-      {/* <Menu /> */}
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -75,7 +73,7 @@ const ShoppingList: React.FC = () => {
         <IonList>
           {list
           ? list.map(({label, checked, id}) => (
-            <IonItem key={id}>
+            <IonItem key={id} color={checked ? "medium" : ''}>
               <IonCheckbox 
                 slot="start" 
                 value={label} 
@@ -83,7 +81,7 @@ const ShoppingList: React.FC = () => {
                 onIonChange={() => handleChecked(id, checked, label)}
               />
               {checked
-              ? <IonLabel color="danger">{label}</IonLabel>
+              ? <IonLabel>{label}</IonLabel>
               : <IonInput
                 value={label}
                 placeholder="Digite o nome do item" 
@@ -105,7 +103,8 @@ const ShoppingList: React.FC = () => {
         <IonButton
           onClick={handleNewItem}
         >
-          Adicionar Item
+          <IonIcon icon={add} />
+          <IonLabel>Adicionar Item</IonLabel>
         </IonButton>
       </IonContent>
     </IonPage>
