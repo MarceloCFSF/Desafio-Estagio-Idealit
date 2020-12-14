@@ -46,18 +46,19 @@ export async function registerUser(username: string, email: string, password: st
   }
 }
 
-export async function deleteUser(username: string, password: string) {
-  var email;
-  const re = /\S+@+\S+\.\S+/
-  re.test(username)
-  ? email = username
-  : email = `${username}@default.com`
-
+export async function deleteUser() {
   try {
-    const res = await auth.createUserWithEmailAndPassword(email, password)
-    return true
+    await auth.currentUser?.delete()
   } catch (error) {
     presentToast(error.message)
+    return false
+  }
+}
+
+export async function loginOutUser() {
+  try {
+    await auth.signOut()
+  } catch {
     return false
   }
 }

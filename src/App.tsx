@@ -26,7 +26,6 @@ import './theme/variables.css';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Main from './pages/Main/Main';
-import Menu from './components/Menu';
 import ShoppingList from './pages/ShoppingList/ShoppingList';
 
 const App: React.FC = () => {
@@ -39,8 +38,7 @@ const App: React.FC = () => {
             <Redirect from="/" to="/page/Login" exact />
             <Route path="/page/Login" component={Login}/>
             <Route path="/page/Register" component={Register}/>
-            <Route path="/page/Main/:id" component={Main}/>
-            <Route path="/page/ShoppingList/:id" component={ShoppingList}/>
+            <Route path="/tabs/:id" component={Main}/>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
